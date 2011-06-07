@@ -109,6 +109,12 @@ ADMIN_TOOLS_THEMING_CSS = 'admin/css/theming.css'
 TINYMCE_JS_URL = '%sjs/tiny_mce/tiny_mce.js' % STATIC_URL
 TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, 'js/tiny_mce')
 
+STORY_SETTINGS = {
+    'RELATION_MODELS': ['story.Stories',],
+    'AUTHOR_MODEL': 'staff.StaffMember',
+    'AUTHOR_MODEL_LIMIT_CHOICES': {},
+}
+
 try:
     from local_settings import *
 except ImportError:
