@@ -1,15 +1,15 @@
 <VirtualHost *:80>
-		ServerAdmin coreyoordt@gmail.com
+		ServerAdmin webmaster@gmail.com
 		ServerName demo.callowayproject.com
 		ServerAlias demomedia.callowayproject.com
-		DocumentRoot /var/code/sampleproject/media
+		DocumentRoot /var/code/samplesite/media
 
-		WSGIDaemonProcess sampleproject user=coordt group=coordt processes=3 threads=1 maximum-requests=1000 python-path=/home/coordt/.virtualenvs/sampleproject/lib/python2.6/site-packages
+		WSGIDaemonProcess sampleproject user=coordt group=coordt processes=3 threads=1 maximum-requests=1000 python-path=/home/coordt/.virtualenvs/samplesite/lib/python2.6/site-packages
 		WSGIProcessGroup sampleproject
-		WSGIScriptAlias / /var/code/sampleproject/conf/sampleproject.wsgi
+		WSGIScriptAlias / /var/code/samplesite/conf/sampleproject.wsgi
 		
-		Alias /media /var/code/sampleproject/media
-		<Directory /var/code/sampleproject/media>
+		Alias /media /var/code/samplesite/media
+		<Directory /var/code/samplesite/media>
 			SetHandler None
 			AddOutputFilterByType DEFLATE text/plain
 			AddOutputFilterByType DEFLATE text/xml
@@ -27,8 +27,8 @@
 			FileETag INode MTime Size
 		</Directory>
 		
-		Alias /admin-media /home/coordt/.virtualenvs/sampleproject/lib/python2.6/site-packages/django/contrib/admin/media
-		<Directory /home/coordt/.virtualenvs/sampleproject/lib/python2.6/site-packages/django/contrib/admin/media>
+		Alias /admin-media /home/coordt/.virtualenvs/samplesite/lib/python2.6/site-packages/django/contrib/admin/media
+		<Directory /home/coordt/.virtualenvs/samplesite/lib/python2.6/site-packages/django/contrib/admin/media>
 			SetHandler None
 		</Directory>
 		
