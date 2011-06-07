@@ -85,7 +85,7 @@ TEMPLATE_DIRS = (
 
 CACHE_BACKEND = 'memcached://localhost:11211/'
 
-INSTALLED_APPS = APPS_DJANGO13_BASE + \
+INSTALLED_APPS = APPS_DJANGO_BASE + \
     APPS_MESSAGES + \
     APPS_ADMIN + \
     APPS_STAFF + \
@@ -99,7 +99,9 @@ INSTALLED_APPS = APPS_DJANGO13_BASE + \
     APPS_MEDIA + \
     APPS_UTILS + \
     APPS_REGISTRATION + \
-    APPS_TINYMCE 
+    APPS_TINYMCE + (
+        'staticfiles',
+    )
 
 ADMIN_TOOLS_THEMING_CSS = 'admin/css/theming.css'
 # ADMIN_TOOLS_MENU = 'menu.CustomMenu'
