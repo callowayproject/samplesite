@@ -103,10 +103,10 @@ INSTALLED_APPS = APPS_DJANGO_BASE + \
         'staticfiles',
     )
 
-ADMIN_TOOLS_THEMING_CSS = 'admin/css/theming.css'
+ADMIN_TOOLS_THEMING_CSS = 'calloway/admin/css/theming.css'
 # ADMIN_TOOLS_MENU = 'menu.CustomMenu'
 
-TINYMCE_JS_URL = '%sjs/tiny_mce/tiny_mce.js' % STATIC_URL
+TINYMCE_JS_URL = '%scalloway/js/tiny_mce/tiny_mce.js' % STATIC_URL
 TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, 'js/tiny_mce')
 
 STORY_SETTINGS = {
