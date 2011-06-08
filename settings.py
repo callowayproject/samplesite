@@ -101,6 +101,7 @@ INSTALLED_APPS = APPS_DJANGO_BASE + \
     APPS_REGISTRATION + \
     APPS_TINYMCE + (
         'staticfiles',
+        'calloway',
     )
 
 ADMIN_TOOLS_THEMING_CSS = 'calloway/admin/css/theming.css'
