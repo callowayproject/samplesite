@@ -5,18 +5,18 @@
 {% block content_nav %}{% endblock %}
 {% block member_opts %}{% if user.is_authenticated %}
 <p>Hello {{ user.first_name }}!</p>
-<ul class="member_opts">
-	<li><a href="{% url auth_logout %}">Logout</a></li>
-	<li><a href="{% url auth_password_change %}">Change Password</a></li>
-	<li><a href="{% url profiles_edit_profile %}">Edit Profile</a></li>
-	{# <li><a href="{% url profiles_profile_detail %}">View Profile</a></li> #}
-</ul>
+{# <ul class="member_opts"> #}
+{# 	<li><a href="{% url auth_logout %}">Logout</a></li> #}
+{# 	<li><a href="{% url auth_password_change %}">Change Password</a></li> #}
+{# 	<li><a href="{% url profiles_edit_profile %}">Edit Profile</a></li> #}
+{# 	<li><a href="{% url profiles_profile_detail %}">View Profile</a></li> #}
+{# </ul> #}
 {% else %}
 <p>Hello Guest</p>
-<ul class="member_opts">
-	<li><a href="{% url auth_login %}">Sign In</a></li>
-	<li><a href="{% url registration_register %}">Join</a></li>
-</ul>
+{# <ul class="member_opts"> #}
+{# 	<li><a href="{% url auth_login %}">Sign In</a></li> #}
+{# 	<li><a href="{% url registration_register %}">Join</a></li> #}
+{# </ul> #}
 {% endif %}{% endblock %}
 {% block search %}{% endblock %}
 
