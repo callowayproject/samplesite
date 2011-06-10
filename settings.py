@@ -63,16 +63,26 @@ except ImportError:
 
 MEDIA_URL = '%suploads/' % MEDIA_URL_PREFIX
 STATIC_URL = "%sstatic/" % MEDIA_URL_PREFIX
-STATIC_MEDIA_APP_MEDIA_PATH = STATIC_ROOT
-STATIC_MEDIA_COPY_PATHS = (
-    {'from': os.path.join(CALLOWAY_ROOT, 'media'), 'to': STATIC_ROOT},
-    {'from': 'static', 'to': STATIC_ROOT},
-)
-STATIC_MEDIA_COMPRESS_CSS = not DEBUG
-STATIC_MEDIA_COMPRESS_JS = not DEBUG
 
-MMEDIA_DEFAULT_STORAGE = 'media_storage.MediaStorage'
-MMEDIA_IMAGE_UPLOAD_TO = 'image/%Y/%m/%d'
+MASSMEDIA_STORAGE = {
+    'DEFAULT': 'media_storage.MediaStorage',
+    'IMAGE': 'media_storage.MediaStorage',
+    'VIDEO': 'media_storage.MediaStorage',
+    'AUDIO': 'media_storage.MediaStorage',
+    'FLASH': 'media_storage.MediaStorage',
+    'DOC': 'media_storage.MediaStorage',
+}
+MASSMEDIA_UPLOAD_TO = {
+    'IMAGE': 'image/%Y/%m/%d'
+}
+MASSMEDIA_SERVICES = {
+    'YOUTUBE': {
+        'EMAIL': '',
+        'USERNAME': '',
+        'PASSWORD': '',
+    }
+}
+TOPICS_DEFAULT_STORAGE = 'media_storage.MediaStorage'
 
 AUTH_PROFILE_MODULE = ''
 
@@ -105,15 +115,95 @@ INSTALLED_APPS = APPS_DJANGO_BASE + \
     )
 
 ADMIN_TOOLS_THEMING_CSS = 'calloway/admin/css/theming.css'
-# ADMIN_TOOLS_MENU = 'menu.CustomMenu'
 
 TINYMCE_JS_URL = '%scalloway/js/tiny_mce/tiny_mce.js' % STATIC_URL
 TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, 'js/tiny_mce')
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "advanced",
+    'relative_urls': False,
+    'plugins': "safari,paste,advimage,advlink,preview,fullscreen,searchreplace",
+    'theme_advanced_toolbar_location' : "top",
+    'theme_advanced_toolbar_align' : "left",
+    'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,blockquote,justifyleft,justifycenter,justifyright|,bullist,numlist,|,link,unlink,|,charmap,image,media,pastetext,pasteword,|,code,preview",
+    'theme_advanced_buttons2' : "",
+    'theme_advanced_buttons3' : "",
+    'theme_advanced_statusbar_location' : "bottom",
+    'width': "600",
+    'height': "600",
+    'gecko_spellcheck': True,
+    'valid_elements' : "@[id|class|title|dir<ltr?rtl|lang|xml::lang|onclick|"
+        "ondblclick|onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|"
+        "onkeypress|onkeydown|onkeyup],"
+        "a[rel|rev|charset|hreflang|tabindex|accesskey|type|name|href|target|"
+           "onfocus|onblur],"
+        "strong/b,em/i,strike,u,#p,-ol[type|compact],-ul[type|compact],-li,br,"
+        "img[longdesc|usemap|src|border|alt=|title|hspace|vspace|width|height|align],"
+        "-sub,-sup,-blockquote,"
+        "-table[border=0|cellspacing|cellpadding|width|frame|rules|height|"
+           "align|summary|bgcolor|background|bordercolor],"
+        "-tr[rowspan|width|height|align|valign|bgcolor|background|bordercolor],"
+        "tbody,thead,tfoot,#td[colspan|rowspan|width|height|align|valign|"
+           "bgcolor|background|bordercolor|scope],"
+        "#th[colspan|rowspan|width|height|align|valign|scope],"
+        "caption,-div,-span,-code,-pre,address,-h1,-h2,-h3,-h4,-h5,-h6,"
+        "hr[size|noshade]|size|color],dd,dl,dt,cite,abbr,acronym,"
+        "del[datetime|cite],ins[datetime|cite],"
+        "object[classid|width|height|codebase|*],"
+        "param[name|value|_value],embed[type|width|height|src|*],"
+        "script[src|type],map[name],area[shape|coords|href|alt|target],"
+        "bdo,button,col[align|char|charoff|span|valign|width],"
+        "colgroup[align|char|charoff|span|valign|width],dfn,fieldset,"
+        "form[action|accept|accept-charset|enctype|method],"
+        "input[accept|alt|checked|disabled|maxlength|name|readonly|size|src|type|value],"
+        "kbd,label[for],legend,noscript,optgroup[label|disabled],"
+        "option[disabled|label|selected|value],q[cite],samp,"
+        "select[disabled|multiple|name|size],small,"
+        "textarea[cols|rows|disabled|name|readonly],tt,var,big,"
+        "iframe[align<bottom?left?middle?right?top|frameborder|height"
+          "|longdesc|marginheight|marginwidth|name|scrolling<auto?no?yes|src|style"
+          "|width]",
+}
 
 STORY_SETTINGS = {
-    'RELATION_MODELS': ['story.Stories',],
+    'RELATION_MODELS': [
+        'massmedia.audio', 'massmedia.image', 'massmedia.document',
+        'massmedia.video', 'massmedia.collection', 'stories.story',
+        'viewpoint.entry', 'viewpoint.blog', 'pollit.poll', 
+        'bookmarks.bookmark', 'pullquote.quote','topics.topic',
+    ],
     'AUTHOR_MODEL': 'staff.StaffMember',
     'AUTHOR_MODEL_LIMIT_CHOICES': {},
+    'THROW_404': False,
+    'AUTHOR_MODEL': 'staff.StaffMember',
+    'AUTHOR_MODEL_LIMIT_CHOICES': {'is_active': True},
+    'USE_CATEGORIES': True,
+    'USE_REVERSION': True,
+}
+
+VIEWPOINT_SETTINGS = {
+    'BLOG_RELATION_MODELS': ['bookmarks.bookmark',],
+    'ENTRY_RELATION_MODELS': [
+        'massmedia.audio', 'massmedia.image', 'massmedia.document',
+        'massmedia.video', 'massmedia.collection', 'stories.story',
+        'viewpoint.entry', 'viewpoint.blog', 'pollit.poll', 
+        'bookmarks.bookmark', 'pullquote.quote', 'topics.topic',],
+    'DEFAULT_STORAGE': 'media_storage.MediaStorage',
+    'AUTHOR_MODEL': 'staff.StaffMember',
+    'USE_CATEGORIES': True,
+    'USE_TAGGING': True,
+}
+
+CATEGORIES_SETTINGS = {
+    'RELATION_MODELS': [
+        'pollit.poll',
+        'bookmarks.bookmark',
+        'massmedia.embed',
+        'massmedia.image',
+        'viewpoint.blog',
+        'snippets.snippet',
+    ],
+    'THUMBNAIL_UPLOAD_PATH': 'categories/thumbnails',
+    'THUMBNAIL_STORAGE': 'media_storage.MediaStorage',
 }
 
 try:
